@@ -6,9 +6,9 @@ public class Reservation
 {
     public required Guid Id { get; set; }
 
-    public User Organizer { get; set; }
+    public User? Organizer { get; set; } = null!;
 
-    public Room Room { get; set; }
+    public Room? Room { get; set; } = null!;
 
     public required Guid RoomId { get; set; }
 
