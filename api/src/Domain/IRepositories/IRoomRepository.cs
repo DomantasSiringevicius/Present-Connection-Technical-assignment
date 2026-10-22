@@ -7,5 +7,5 @@ public interface IRoomRepository
 {
     Task<Room?> GetRoomByIdAsync(Guid id);
 
-    Task<List<Room>?> GetRoomsAsync(int? minCapacity, int? floor, List<Equipment>? equipment);
+    Task<List<Room>> GetRoomsAsync(int? minCapacity, int? floor, List<Equipment>? equipment);
 }

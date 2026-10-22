@@ -1,4 +1,6 @@
+using Domain.IRepositories;
 using Infrastructure.Persistence;
+using Infrastructure.Repositories;
 using Infrastructure.Seeders;
 using Infrastructure.Seeders.EntitySeeders;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +13,6 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
         services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("RoomReservation"));
-
         services.AddScoped<ISeeder, RoomSeeder>();
         services.AddScoped<ISeeder, UserSeeder>();
         services.AddScoped<ISeeder, ReservationSeeder>();

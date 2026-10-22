@@ -1,14 +1,19 @@
+using System.Text.Json.Serialization;
+using Application.UseCases.Rooms.GetRooms;
 using Infrastructure;
 using Infrastructure.Persistence;
 using Infrastructure.Seeders;
-using Infrastructure.Seeders.EntitySeeders;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddInfrastructure();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetRoomsQuery).Assembly));
+
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
 var app = builder.Build();
 
@@ -21,7 +26,7 @@ if (app.Environment.IsDevelopment())
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var seeder = scope.ServiceProvider.GetRequiredService<ApplicationSeeder>();
     
-    await seeder.SeedAllAsync(dbContext, app.Services);
+    await seeder.SeedAllAsync(dbContext, scope.ServiceProvider);
 }
 
 app.MapControllers();
