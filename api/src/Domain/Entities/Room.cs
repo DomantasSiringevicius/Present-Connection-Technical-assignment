@@ -12,7 +12,7 @@ public class Room
 
     public required int Floor { get; set; }
 
-    public HashSet<Equipment> Equipments { get; set; } = [];
+    public List<Equipment> Equipments { get; set; } = [];
 
     public required bool IsActive { get; set; }
 
