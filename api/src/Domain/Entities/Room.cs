@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities;
+﻿using Domain.Enums;
+
+namespace Domain.Entities;
 
 public class Room
 {
@@ -10,5 +12,7 @@ public class Room
     
     public required int Floor {get; set;}
 
-    public required bool IsActive = true;
+    public HashSet<Equipment> Equipments { get; set; } = [];
+
+    public required bool IsActive { get; set; }
 }
