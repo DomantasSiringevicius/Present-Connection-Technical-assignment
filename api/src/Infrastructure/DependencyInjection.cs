@@ -14,6 +14,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("RoomReservation"));
         services.AddScoped<IRoomRepository, RoomRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         
         services.AddScoped<ISeeder, RoomSeeder>();
         services.AddScoped<ISeeder, UserSeeder>();
