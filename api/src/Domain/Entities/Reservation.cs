@@ -6,9 +6,9 @@ public class Reservation
 {
     public required Guid Id { get; set; }
 
-    public User? Organizer { get; set; } = null!;
+    public User Organizer { get; set; } = null!;
 
-    public Room? Room { get; set; } = null!;
+    public Room Room { get; set; } = null!;
 
     public required Guid RoomId { get; set; }
 
@@ -25,4 +25,9 @@ public class Reservation
     public required int NumberOfAttendees { get; set; }
 
     public ReservationStatus ReservationStatus { get; set; } = ReservationStatus.Booked;
+
+    public bool IsActive()
+    {
+        return ReservationStatus == ReservationStatus.Booked && EndDate > DateTime.UtcNow;
+    }
 }
