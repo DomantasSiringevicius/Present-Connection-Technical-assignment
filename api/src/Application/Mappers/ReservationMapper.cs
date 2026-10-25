@@ -15,8 +15,10 @@ public static class ReservationMapper
             RoomName = reservation.Room.Name,
             OrganizerId = reservation.OrganizerId,
             OrganizerName = reservation.Organizer.Name,
+            OrganizerLastName = reservation.Organizer.LastName,
             StartDate = reservation.StartDate,
             EndDate = reservation.EndDate,
+            ActualEndDate = reservation.ActualEndDate,
             NumberOfAttendees = reservation.NumberOfAttendees,
             ReservationStatus = reservation.ReservationStatus
         };

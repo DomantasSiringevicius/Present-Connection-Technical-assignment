@@ -15,6 +15,8 @@ public class ReservationDto
     public required Guid OrganizerId { get; set; }
 
     public required string OrganizerName { get; set; }
+    
+    public required string OrganizerLastName { get; set; }
 
     public required DateTime StartDate { get; set; }
 
