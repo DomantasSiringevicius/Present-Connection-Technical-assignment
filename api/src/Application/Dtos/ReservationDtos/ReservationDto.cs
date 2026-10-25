@@ -24,5 +24,5 @@ public class ReservationDto
 
     public required int NumberOfAttendees { get; set; }
 
-    public ReservationStatus Status { get; set; }
+    public ReservationStatus ReservationStatus { get; set; }
 }
