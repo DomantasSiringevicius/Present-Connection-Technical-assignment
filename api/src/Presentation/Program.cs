@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Application.Options;
 using Application.UseCases.Rooms.GetRooms;
 using Infrastructure;
 using Infrastructure.Persistence;
@@ -13,6 +14,8 @@ builder.Services.AddInfrastructure();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetRoomsQuery).Assembly));
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+builder.Services.Configure<BookingOptions>(builder.Configuration.GetSection("Booking"));
 
 builder.Services
     .AddControllers()
