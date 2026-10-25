@@ -11,4 +11,9 @@ public class UserRepository(AppDbContext dbContext) : IUserRepository
     {
         return await dbContext.Users.Include(u => u.Reservations).ToListAsync();
     }
+
+    public async Task<User?> GetUserByIdAsync(Guid id)
+    {
+        return await dbContext.Users.FirstOrDefaultAsync(u => u.Id.Equals(id));
+    }
 }
