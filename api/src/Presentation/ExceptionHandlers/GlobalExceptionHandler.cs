@@ -13,12 +13,12 @@ public class GlobalExceptionHandler(
     {
         var (statusCode, title, detail, code) = exception switch
         {
-            BookingRuleException => (StatusCodes.Status400BadRequest, "Booking rule violation", exception.Message,
-                "BOOKING_RULE_VIOLATION"),
+            BookingRuleException bookingRuleException => (StatusCodes.Status400BadRequest, "Booking rule violation",
+                bookingRuleException.Message, bookingRuleException.Code),
             KeyNotFoundException => (StatusCodes.Status404NotFound, "Resource not found", exception.Message,
                 "RESOURCE_NOT_FOUND"),
-            _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred", exception.Message,
-                "INTERNAL_SERVER_ERROR")
+            _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred",
+                "Something went wrong. Please try again later.", "INTERNAL_SERVER_ERROR")
         };
         
         if (statusCode == StatusCodes.Status500InternalServerError)
