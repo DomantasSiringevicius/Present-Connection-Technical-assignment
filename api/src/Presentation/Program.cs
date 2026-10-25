@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using Application.Options;
 using Application.UseCases.Rooms.GetRooms;
+using Application.Validators;
 using Infrastructure;
 using Infrastructure.Persistence;
 using Infrastructure.Seeders;
@@ -16,6 +17,7 @@ builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 builder.Services.Configure<BookingOptions>(builder.Configuration.GetSection("Booking"));
+builder.Services.AddScoped<BookingRulesValidator>();
 
 builder.Services
     .AddControllers()
