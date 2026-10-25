@@ -24,7 +24,7 @@ public class BookingRulesValidator(
 
         if (command.EndDate <= command.StartDate)
         {
-            throw new BookingRuleException("R5", "Reservation end date must be after start date.");
+            throw new BookingRuleException("R4", "Reservation end date must be after start date.");
         }
 
         if (command.EndDate - command.StartDate > TimeSpan.FromDays(_bookingOptions.MaxDurationDays))
@@ -49,6 +49,16 @@ public class BookingRulesValidator(
             throw new BookingRuleException("R5",
                 $"Room '{room.Name}' fits '{room.Capacity}' attendees, but the reservation has '{command.NumberOfAttendees}' attendees.");
         }
+        
+        if(await reservationRepository.HasOverlappingRoomReservationAsync(room.Id, command.StartDate, command.EndDate))
+        {
+            throw new BookingRuleException("R2", $"Room '{room.Name}' is already booked for the selected time range.");
+        }
+        
+        if(await reservationRepository.HasOverlappingOrganizerReservationAsync(command.OrganizerId, command.StartDate, command.EndDate))
+        {
+            throw new BookingRuleException("R3", $"Organizer '{command.OrganizerId}' is already booked for the selected time range.");
+        }       
         
     }
 }
