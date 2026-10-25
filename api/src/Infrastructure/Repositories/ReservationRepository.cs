@@ -51,4 +51,21 @@ public class ReservationRepository(AppDbContext dbContext) : IReservationReposit
         await dbContext.Reservations.AddAsync(reservation);
         await dbContext.SaveChangesAsync();
     }
+
+    public async Task<bool> HasOverlappingRoomReservationAsync(Guid roomId, DateTime startDate, DateTime endDate)
+    {
+        return await dbContext.Reservations.AnyAsync(r => r.RoomId == roomId &&
+                                                          r.ReservationStatus != ReservationStatus.Cancelled &&
+                                                          r.StartDate < endDate &&
+                                                          (r.ActualEndDate ?? r.EndDate) > startDate);
+    }
+
+    public async Task<bool> HasOverlappingOrganizerReservationAsync(Guid organizerId, DateTime startDate,
+        DateTime endDate)
+    {
+        return await dbContext.Reservations.AnyAsync(r => r.OrganizerId == organizerId &&
+                                                          r.ReservationStatus != ReservationStatus.Cancelled &&
+                                                          r.StartDate < endDate &&
+                                                          (r.ActualEndDate ?? r.EndDate) > startDate);
+    }
 }
