@@ -12,4 +12,8 @@ public interface IReservationRepository
     Task<bool> HasOverlappingRoomReservationAsync(Guid roomId, DateTime startDate, DateTime endDate);
     
     Task<bool> HasOverlappingOrganizerReservationAsync(Guid organizerId, DateTime startDate, DateTime endDate);
+    
+    Task<Reservation?> GetReservationByIdAsync(Guid id);
+    
+    Task UpdateAsync(Reservation reservation);
 }

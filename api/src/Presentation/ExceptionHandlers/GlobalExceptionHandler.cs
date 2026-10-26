@@ -17,10 +17,12 @@ public class GlobalExceptionHandler(
                 bookingRuleException.Message, bookingRuleException.Code),
             KeyNotFoundException => (StatusCodes.Status404NotFound, "Resource not found", exception.Message,
                 "RESOURCE_NOT_FOUND"),
+            InvalidOperationException invalidOperationException => (StatusCodes.Status409Conflict,
+                "Invalid reservation state", invalidOperationException.Message, "INVALID_RESERVATION_STATE"),
             _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred",
                 "Something went wrong. Please try again later.", "INTERNAL_SERVER_ERROR")
         };
-        
+
         if (statusCode == StatusCodes.Status500InternalServerError)
         {
             logger.LogError(exception, "An unexpected error occurred: {Message}", exception.Message);
