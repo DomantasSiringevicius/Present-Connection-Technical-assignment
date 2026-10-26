@@ -68,4 +68,17 @@ public class ReservationRepository(AppDbContext dbContext) : IReservationReposit
                                                           r.StartDate < endDate &&
                                                           (r.ActualEndDate ?? r.EndDate) > startDate);
     }
+
+    public async Task<Reservation?> GetReservationByIdAsync(Guid id)
+    {
+        return await dbContext.Reservations
+            .Include(r => r.Room)
+            .Include(r => r.Organizer)
+            .FirstOrDefaultAsync(r => r.Id == id);
+    }
+
+    public async Task UpdateAsync(Reservation reservation)
+    {
+        await dbContext.SaveChangesAsync();
+    }
 }
