@@ -26,6 +26,7 @@ public class ReservationSeeder : ISeeder
         Dictionary<string, User> users)
     {
         var today = DateTime.UtcNow.Date;
+        var now = DateTime.UtcNow;
 
         return
         [
@@ -55,8 +56,8 @@ public class ReservationSeeder : ISeeder
                 RoomId = rooms["Room 3"].Id,
                 OrganizerId = users["Jonas"].Id,
                 MeetingTitle = "Design review",
-                StartDate = today.AddDays(4).AddHours(14),
-                EndDate = today.AddDays(4).AddHours(15).AddMinutes(30),
+                StartDate = now.AddMinutes(-30),
+                EndDate = today.AddHours(1),
                 NumberOfAttendees = 5
             },
             new Reservation
