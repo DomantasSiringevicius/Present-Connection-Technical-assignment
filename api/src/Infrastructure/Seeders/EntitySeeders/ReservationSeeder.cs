@@ -57,7 +57,7 @@ public class ReservationSeeder : ISeeder
                 OrganizerId = users["Jonas"].Id,
                 MeetingTitle = "Design review",
                 StartDate = now.AddMinutes(-30),
-                EndDate = today.AddHours(1),
+                EndDate = now.AddHours(1),
                 NumberOfAttendees = 5
             },
             new Reservation
